@@ -1,10 +1,10 @@
-package fu.hr.repository;
+package fu.hr.service;
 
 import fu.hr.entity.Jobs;
 
 import java.util.List;
 
-public interface JobRepository {
+public interface JobService {
     Jobs save(Jobs job);
 
     Jobs update(Jobs job);
@@ -14,6 +14,4 @@ public interface JobRepository {
     List<Jobs> findAll();
 
     List<Jobs> findByJobTitle(String jobTitle);
-
-    boolean existsByTitle(String title);
 }
