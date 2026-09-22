@@ -4,11 +4,25 @@ import fu.hr.entity.Jobs;
 import fu.hr.exception.JobInvalidException;
 import fu.hr.repository.JobRepository;
 import fu.hr.repository.JobRepositoryImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service("jobService")
 public class JobServiceImpl implements JobService {
-    private JobRepository jobRepository = new JobRepositoryImpl();
+//    @Autowired // Inject by Field - reflection
+    private JobRepository jobRepository; // Inject
+
+    // Inject by constructor
+    public JobServiceImpl(JobRepository jobRepository) {
+        this.jobRepository = jobRepository;
+    }
+
+//    @Autowired
+//    public void setJobRepository(JobRepository jobRepository) {
+//        this.jobRepository = jobRepository;
+//    }
 
     @Override
     public Jobs save(Jobs job) {
@@ -40,7 +54,8 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public List<Jobs> findAll() {
-        return null;
+
+        return jobRepository.findAll();
     }
 
     @Override

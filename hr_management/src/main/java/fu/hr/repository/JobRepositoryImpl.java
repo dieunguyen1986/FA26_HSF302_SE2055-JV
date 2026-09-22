@@ -5,10 +5,15 @@ import fu.hr.utils.JpaUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository("jobRepository")
+@Scope("singleton")
 public class JobRepositoryImpl implements JobRepository {
+
     @Override
     public Jobs save(Jobs job) {
         EntityManager entityManager = null;

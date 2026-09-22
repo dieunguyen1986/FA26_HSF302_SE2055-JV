@@ -2,6 +2,8 @@ package fu.hr.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 @Entity
 @Table(name = "jobs", check = {
@@ -13,6 +15,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
+@Component
+@Scope("prototype")
 public class Jobs {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
