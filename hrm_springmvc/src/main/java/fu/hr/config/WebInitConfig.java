@@ -6,7 +6,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 public class WebInitConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?> @Nullable [] getRootConfigClasses() {
-        return new Class[0];
+        return new Class[]{HibernateConfig.class};
     }
 
     @Override
