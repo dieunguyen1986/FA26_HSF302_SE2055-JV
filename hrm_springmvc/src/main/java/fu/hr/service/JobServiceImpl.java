@@ -1,9 +1,11 @@
 package fu.hr.service;
 
+import fu.hr.dto.JobResponse;
 import fu.hr.entity.Jobs;
 import fu.hr.exception.JobInvalidException;
 import fu.hr.repository.JobRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,7 +25,8 @@ public class JobServiceImpl implements JobService {
 //    }
 
     @Override
-    public Jobs save(Jobs job) {
+    @Transactional
+    public JobResponse save(Jobs job) {
 
         // Validate
 
@@ -36,7 +39,7 @@ public class JobServiceImpl implements JobService {
         }
 
         // Rules
-        return jobRepository.save(job);
+        return toJobResponse(jobRepository.save(job));
 
     }
 
@@ -59,5 +62,18 @@ public class JobServiceImpl implements JobService {
     @Override
     public List<Jobs> findByJobTitle(String jobTitle) {
         return null;
+    }
+
+    //
+    private JobResponse toJobResponse(Jobs job) {
+
+        JobResponse jobResponse = new JobResponse();
+        jobResponse.setId(job.getId());
+        jobResponse.setJobTitle(job.getJobTitle());
+        jobResponse.setMaxSalary(job.getMaxSalary());
+        jobResponse.setMinSalary(job.getMinSalary());
+
+        return  jobResponse;
+
     }
 }

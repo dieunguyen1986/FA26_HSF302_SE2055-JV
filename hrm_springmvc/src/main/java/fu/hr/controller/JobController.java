@@ -3,25 +3,33 @@ package fu.hr.controller;
 import fu.hr.entity.Jobs;
 import fu.hr.service.JobService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
-//@Controller
-@RestController
+@Controller
+//@RestController
 @RequiredArgsConstructor
 public class JobController { // Spring Bean
     private final JobService jobService;
 
     @RequestMapping(path = "/jobs", method = {RequestMethod.GET})
-    public String getJobs() {
+    public String getJobs(Model model) {
 
-        return "jobs"; // view name - JSON
+        return "job-management"; // view name - JSON
     }
 
 
     @PostMapping("/jobs")
-    public Jobs createJob(@RequestParam(name = "jobTitle") String jobTitle,
-                          @RequestParam(name = "minSal") Double minSalary,
-                          @RequestParam(name = "maxSal") Double maxSalary
+    public ModelAndView createJob(@RequestParam(name = "jobTitle") String jobTitle,
+                                  @RequestParam(name = "minSal") Double minSalary,
+                                  @RequestParam(name = "maxSal") Double maxSalary,
+                                  Model model
+
     ) {
 
         System.out.println("create job title: " + jobTitle);
@@ -32,6 +40,14 @@ public class JobController { // Spring Bean
                 .maxSalary(maxSalary)
                 .build();
 
-        return jobService.save(job);
+        jobService.save(job);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("job-management");
+
+        modelAndView.addObject("message", "Create successful!");
+//        return
+
+        return modelAndView;
     }
 }

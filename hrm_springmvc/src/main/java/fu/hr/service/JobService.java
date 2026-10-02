@@ -1,11 +1,12 @@
 package fu.hr.service;
 
+import fu.hr.dto.JobResponse;
 import fu.hr.entity.Jobs;
 
 import java.util.List;
 
 public interface JobService {
-    Jobs save(Jobs job);
+    JobResponse save(Jobs job);
 
     Jobs update(Jobs job);
 
