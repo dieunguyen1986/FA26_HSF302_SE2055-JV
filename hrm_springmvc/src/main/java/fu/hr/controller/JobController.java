@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -31,10 +31,10 @@ public class JobController { // Spring Bean
 
 
     @PostMapping("/jobs")
-    public ModelAndView createJob(@RequestParam(name = "jobTitle") String jobTitle,
-                                  @RequestParam(name = "minSal") Double minSalary,
-                                  @RequestParam(name = "maxSal") Double maxSalary,
-                                  Model model
+    public String createJob(@RequestParam(name = "jobTitle") String jobTitle,
+                            @RequestParam(name = "minSal") Double minSalary,
+                            @RequestParam(name = "maxSal") Double maxSalary,
+                            Model model, RedirectAttributes redirectAttributes
 
     ) {
 
@@ -48,12 +48,9 @@ public class JobController { // Spring Bean
 
         jobService.save(job);
 
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("job-management");
-
-        modelAndView.addObject("message", "Create successful!");
+        model.addAttribute("message", "Create successful!");
 //        return
 
-        return modelAndView;
+        return "redirect:/jobs";
     }
 }
