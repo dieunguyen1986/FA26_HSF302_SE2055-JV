@@ -17,6 +17,7 @@
             <hr>
 
             <p th:if="${message!=null}" class="text-success" th:text="${message}"></p>
+            <p th:if="${error!=null}" class="text-danger" th:text="${error}"></p>
 
             <form method="POST" th:action="@{/jobs}">
                 <div class="mb-3">
@@ -40,28 +41,21 @@
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Job Title</th>
+                    <th scope="col">Min Salary</th>
+                    <th scope="col">Max Salary</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
+                <tr th:each="job, iterStat : ${jobs}">
+                    <th scope="row" th:text="${iterStat.index + 1}"></th>
+                    <td th:text="${job.jobTitle}"></td>
+                    <td th:text="${job.minSalary}"></td>
+                    <td th:text="${job.maxSalary}"></td>
+                    <td>
+                        <a class="btn btn-primary" th:href="@{/jobs/edit/{id}(id=${job.id})}">Edit</a> |
+                        <a class="btn btn-danger" th:href="@{/jobs/delete/{id}(id=${job.id})}">Delete</a>
+                    </td>
                 </tr>
                 </tbody>
             </table>

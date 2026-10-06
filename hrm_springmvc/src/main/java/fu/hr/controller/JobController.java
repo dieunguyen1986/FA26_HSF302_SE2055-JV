@@ -1,5 +1,6 @@
 package fu.hr.controller;
 
+import fu.hr.dto.JobResponse;
 import fu.hr.entity.Jobs;
 import fu.hr.service.JobService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 //@RestController
 @RequiredArgsConstructor
@@ -19,6 +22,9 @@ public class JobController { // Spring Bean
 
     @RequestMapping(path = "/jobs", method = {RequestMethod.GET})
     public String getJobs(Model model) {
+
+        List<JobResponse> jobs = jobService.findAll();
+        model.addAttribute("jobs", jobs);
 
         return "job-management"; // view name - JSON
     }

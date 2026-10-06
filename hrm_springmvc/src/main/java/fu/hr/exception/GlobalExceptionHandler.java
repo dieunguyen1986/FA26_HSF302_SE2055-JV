@@ -10,6 +10,8 @@ public class GlobalExceptionHandler {
     public String handleException(Exception e, Model model) {
         System.err.println("Exception Handling: " + e.getMessage());
         e.printStackTrace();
-        return e.getMessage();
+
+        model.addAttribute("error", e.getMessage());
+        return "job-management";
     }
 }

@@ -6,7 +6,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -30,4 +31,13 @@ public class JobRepositoryImpl implements JobRepository {
         return !query.getResultList().isEmpty();
 
     }
+
+    @Override
+    public List<Jobs> findAll() {
+
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("FROM Jobs", Jobs.class).getResultList();
+    }
+
+
 }

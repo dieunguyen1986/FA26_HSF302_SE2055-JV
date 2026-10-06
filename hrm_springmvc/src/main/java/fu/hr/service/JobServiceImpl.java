@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service("jobService")
 public class JobServiceImpl implements JobService {
-//    @Autowired // Inject by Field - reflection
+    //    @Autowired // Inject by Field - reflection
     private JobRepository jobRepository; // Inject
 
     // Inject by constructor
@@ -54,9 +54,18 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public List<Jobs> findAll() {
+    @Transactional
+    public List<JobResponse> findAll() {
 
-        return null;
+        return jobRepository.findAll().stream().map((job) -> {
+            JobResponse jobResponse = new JobResponse();
+            jobResponse.setId(job.getId());
+            jobResponse.setJobTitle(job.getJobTitle());
+            jobResponse.setMinSalary(job.getMinSalary());
+            jobResponse.setMaxSalary(job.getMaxSalary());
+
+            return jobResponse;
+        }).toList();
     }
 
     @Override
@@ -73,7 +82,7 @@ public class JobServiceImpl implements JobService {
         jobResponse.setMaxSalary(job.getMaxSalary());
         jobResponse.setMinSalary(job.getMinSalary());
 
-        return  jobResponse;
+        return jobResponse;
 
     }
 }

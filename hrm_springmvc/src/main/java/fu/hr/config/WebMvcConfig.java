@@ -16,7 +16,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"fu.hr.controller"})
+@ComponentScan(basePackages = {"fu.hr"})
 @RequiredArgsConstructor
 public class WebMvcConfig {
     private final ApplicationContext applicationContext;

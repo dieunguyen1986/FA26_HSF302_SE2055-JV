@@ -12,7 +12,7 @@ public interface JobService {
 
     void delete(Long id);
 
-    List<Jobs> findAll();
+    List<JobResponse> findAll();
 
     List<Jobs> findByJobTitle(String jobTitle);
 }
