@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Department Detail</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+</head>
+<body>
+<main class="container-fluid mt-5 px-4">
+    <div class="d-flex justify-content-between">
+
+        <div>
+            <h2 class="mb-3">Department Detail</h2>
+        </div>
+        <div>
+            <button type="button" class="btn btn-secondary" style="width: 120px">Back to list</button>
+            <button type="submit" class="btn btn-primary" style="width: 120px" data-bs-toggle="modal"
+                    data-bs-target="#addDepartmentModal">Save
+
+        </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <form th:action="@{/departments/create}" method="POST">
+                <div class="mb-3">
+                    <label for="deptName" class="form-label">Department Name</label>
+                    <input type="text" class="form-control" id="deptName"
+                           placeholder="Marketing">
+                </div>
+                <div class="mb-3">
+                    <label for="deptName" class="form-label">Manager</label>
+                    <select class="form-select" aria-label="Default select example">
+
+                        <option selected>Open this select menu</option>
+                        <option th:each="mng:  ${managers}" value="1" th:text="${mng}"></option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="deptName" class="form-label">Location</label>
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option th:each="loc:  ${locations}" value="1" th:text="${loc}"></option>
+                    </select>
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="desc" class="form-label">Description</label>
+                    <textarea class="form-control" id="desc" rows="3"></textarea>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
