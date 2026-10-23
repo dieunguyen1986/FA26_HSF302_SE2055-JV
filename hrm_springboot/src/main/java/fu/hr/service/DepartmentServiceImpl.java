@@ -9,6 +9,7 @@ import fu.hr.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     private final EmployeeRepository employeeRepository;
 
     @Override
+    @Transactional
     public DepartmentResponse create(DepartmentRequest request) {
 
         if (request.getDepartmentName() == null || request.getDepartmentName().trim().equals("")) {
@@ -33,7 +35,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         Employees employee = employeeRepository.findById(request.getManagerId()).orElse(null); // E10
 
 
-        // Map to entity
+        // Map dto to entity
 
         Department department = new Department();
         department.setDepartmentName(request.getDepartmentName());
@@ -41,6 +43,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         if (employee != null) {
             department.setDeptManager(employee);
         }
+        department.setDescription(request.getDescription());
 
         Department deptEntity = departmentRepository.save(department);
 
@@ -48,6 +51,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    @Transactional
     public List<DepartmentResponse> findAll() {
 
         return departmentRepository.findAll().stream().map((department) -> toDto(department)).toList();
@@ -59,6 +63,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         if (id == null || !departmentRepository.existsById(id)) {
             throw new IllegalArgumentException("Department not found!");
@@ -68,6 +73,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    @Transactional
     public DepartmentResponse findById(Long id) { // Lambda Expression
         Department department = departmentRepository.findById(id).orElseThrow(() -> {
             return new RuntimeException("Department not found!");
@@ -76,6 +82,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    @Transactional
     public List<DepartmentResponse> findByName(String name) {
         return departmentRepository.findByDepartmentNameContaining(name).stream().map((department) -> toDto(department)).toList();
     }

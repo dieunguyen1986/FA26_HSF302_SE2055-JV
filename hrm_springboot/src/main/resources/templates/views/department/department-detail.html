@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Department Detail</title>
@@ -10,42 +10,48 @@
 </head>
 <body>
 <main class="container-fluid mt-5 px-4">
-    <div class="d-flex justify-content-between">
-
-        <div>
-            <h2 class="mb-3">Department Detail</h2>
-        </div>
-        <div>
-            <button type="button" class="btn btn-secondary" style="width: 120px">Back to list</button>
-            <button type="submit" class="btn btn-primary" style="width: 120px" data-bs-toggle="modal"
-                    data-bs-target="#addDepartmentModal">Save
-
-        </button>
-        </div>
-    </div>
 
     <div class="row">
         <div class="col-md-12">
-            <form th:action="@{/departments/create}" method="POST">
+            <form th:action="@{/departments}" method="POST" th:object="${department}">
+                <div class="d-flex justify-content-between">
+
+                    <div>
+                        <h2 class="mb-3">Department Detail</h2>
+                    </div>
+                    <div>
+                        <a type="button" class="btn btn-secondary" th:href="@{/departments}"  style="width: 120px">Back to list</a>
+                        <button type="submit" class="btn btn-primary" style="width: 120px" data-bs-toggle="modal"
+                                data-bs-target="#addDepartmentModal">Save
+
+                        </button>
+                    </div>
+                </div>
                 <div class="mb-3">
                     <label for="deptName" class="form-label">
                         Department Name <span class="text-danger" aria-hidden="true">*</span>
                     </label>
                     <input type="text" class="form-control" id="deptName"
+                           th:field="*{departmentName}"
                            placeholder="Marketing" required aria-required="true">
+
+                    <div class="text-danger" th:if="${#fields.hasErrors('departmentName')}" th:errors="*{departmentName}"></div>
+
+
                 </div>
                 <div class="mb-3">
                     <label for="deptName" class="form-label">Manager</label>
-                    <select class="form-select" aria-label="Default select example">
+                    <select class="form-select" aria-label="Default select example" name="managerId">
 
                         <option selected>Open this select menu</option>
-                        <option th:each="mng:  ${managers}" value="1" th:text="${mng}"></option>
+                        <option th:each="mng:  ${managers}" th:value="${mng.id}"
+                                th:text="${#strings.concat(mng.firstName, ' ', mng.lastName)}"></option>
                     </select>
                 </div>
 
                 <div class="mb-3">
                     <label for="deptName" class="form-label">Location</label>
-                    <select class="form-select" aria-label="Default select example">
+                    <select class="form-select" aria-label="Default select example" name="locationId">
                         <option selected>Open this select menu</option>
                         <option th:each="loc:  ${locations}" value="1" th:text="${loc}"></option>
                     </select>
@@ -54,7 +60,7 @@
 
                 <div class="mb-3">
                     <label for="desc" class="form-label">Description</label>
-                    <textarea class="form-control" id="desc" rows="3"></textarea>
+                    <textarea class="form-control" id="desc" name="description" rows="3"></textarea>
                 </div>
             </form>
         </div>

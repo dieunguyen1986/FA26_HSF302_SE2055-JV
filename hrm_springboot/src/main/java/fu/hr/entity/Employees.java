@@ -47,5 +47,6 @@ public class Employees {
     private Employees manager;
 
     @OneToOne(mappedBy = "deptManager")
+    @JoinColumn(name = "department_id", referencedColumnName = "id")
     private Department department;
 }

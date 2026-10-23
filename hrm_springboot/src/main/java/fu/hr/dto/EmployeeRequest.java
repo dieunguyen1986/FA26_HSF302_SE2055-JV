@@ -1,5 +1,6 @@
 package fu.hr.dto;
 
+import jakarta.validation.constraints.FutureOrPresent;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -17,6 +18,8 @@ public class EmployeeRequest {
     private String lastName;
     private String email;
     private String phoneNumber;
+
+    @FutureOrPresent
     private LocalDate hireDate;
     private BigDecimal salary;
     private Double commissionPct;
