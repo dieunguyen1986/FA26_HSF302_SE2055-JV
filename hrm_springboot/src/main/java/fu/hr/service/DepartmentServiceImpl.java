@@ -60,12 +60,16 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public void delete(Long id) {
+        if (id == null || !departmentRepository.existsById(id)) {
+            throw new IllegalArgumentException("Department not found!");
+        }
 
+        departmentRepository.deleteById(id);
     }
 
     @Override
     public DepartmentResponse findById(Long id) { // Lambda Expression
-        Department department = departmentRepository.findById(id).orElseThrow(()->{
+        Department department = departmentRepository.findById(id).orElseThrow(() -> {
             return new RuntimeException("Department not found!");
         });
         return toDto(department);
@@ -80,8 +84,12 @@ public class DepartmentServiceImpl implements DepartmentService {
         DepartmentResponse response = new DepartmentResponse();
         response.setId(department.getId());
         response.setDepartmentName(department.getDepartmentName());
-        response.setManagerName(department.getDeptManager().getFirstName() + " "
-                + department.getDeptManager().getLastName());
+        if (department.getDeptManager() != null) {
+            response.setManagerName(department.getDeptManager().getFirstName() + " "
+                    + department.getDeptManager().getLastName());
+        }
+
+
         response.setDescription(department.getDescription());
 
         return response;

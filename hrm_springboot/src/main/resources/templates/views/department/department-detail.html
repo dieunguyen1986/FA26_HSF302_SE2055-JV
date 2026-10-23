@@ -28,9 +28,11 @@
         <div class="col-md-12">
             <form th:action="@{/departments/create}" method="POST">
                 <div class="mb-3">
-                    <label for="deptName" class="form-label">Department Name</label>
+                    <label for="deptName" class="form-label">
+                        Department Name <span class="text-danger" aria-hidden="true">*</span>
+                    </label>
                     <input type="text" class="form-control" id="deptName"
-                           placeholder="Marketing">
+                           placeholder="Marketing" required aria-required="true">
                 </div>
                 <div class="mb-3">
                     <label for="deptName" class="form-label">Manager</label>

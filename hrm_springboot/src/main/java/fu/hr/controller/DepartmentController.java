@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -23,7 +25,7 @@ public class DepartmentController {
 
         model.addAttribute("departments", departments);
 
-        return "views/department_list";
+        return "views/department/department-list";
     }
 
     @GetMapping("/detail")
@@ -33,6 +35,12 @@ public class DepartmentController {
         model.addAttribute("managers", List.of("Viet Anh", "Phuong"));
         model.addAttribute("locations", List.of("17 Duy Tan, Dich Vong, Ha Noi", "234 Cau Giay, Ha Noi"));
 
-        return "views/department_detail";
+        return "views/department/department-detail";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteDepartment(@PathVariable Long id) {
+        departmentService.delete(id);
+        return "redirect:/departments";
     }
 }
