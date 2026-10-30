@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{views/layout/admin-layout}"
+>
 <head>
     <meta charset="UTF-8">
     <title>Department Detail</title>
@@ -9,7 +12,7 @@
 
 </head>
 <body>
-<main class="container-fluid mt-5 px-4">
+<main layout:fragment="content" class="container-fluid mt-5 px-4 vh-100">
 
     <div class="row">
         <div class="col-md-12">
