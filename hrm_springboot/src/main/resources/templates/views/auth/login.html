@@ -17,25 +17,32 @@
                 <h2 class="card-title text-center mb-3">Login Form</h2>
                 <hr class="mt-0 mb-3">
                 <p class="card-text text-muted mb-4">Welcome back. Sign in to continue to your account.</p>
+                <div class="text-danger mb-3" th:if="${param.error}">Email or password is wrong</div>
+
+                <div class="text-danger mb-3" th:if="${param.accessDenied}">Login with correct credential</div>
+
 
                 <form th:object="${loginRequest}" method="post" th:action="@{/auths/login}">
                     <div class="row g-3">
                         <div class="col-12">
                             <input id="email" type="email" class="form-control" th:field="*{email}"
                                    placeholder="admin@example.com" autocomplete="email" autofocus>
-                            <div class="text-danger small mt-1" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                            <div class="text-danger small mt-1" th:if="${#fields.hasErrors('email')}"
+                                 th:errors="*{email}"></div>
                         </div>
 
                         <div class="col-12">
                             <input id="password" type="password" class="form-control" th:field="*{password}"
                                    placeholder="Your Password" autocomplete="current-password">
-                            <div class="text-danger small mt-1" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                            <div class="text-danger small mt-1" th:if="${#fields.hasErrors('password')}"
+                                 th:errors="*{password}"></div>
                         </div>
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center mt-4">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="true" id="rememberMe" name="rememberMe">
+                            <input class="form-check-input" type="checkbox" value="true" id="rememberMe"
+                                   name="rememberMe">
                             <label class="form-check-label" for="rememberMe">Remember me</label>
                         </div>
                         <a href="#" class="small">Forgot password?</a>

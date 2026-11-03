@@ -7,6 +7,7 @@ import fu.hr.service.EmployeeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import java.util.List;
 @RequestMapping("/departments")
 @RequiredArgsConstructor
 @Slf4j
+@PreAuthorize("hasRole('HRM')")
 public class DepartmentController {
     private final DepartmentService departmentService;
     private final EmployeeService employeeService;
